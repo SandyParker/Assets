@@ -7,7 +7,7 @@ public class RotateView : MonoBehaviour
     // Start is called before the first frame update
     public void RotateRight()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, 180, 0);
     }
             
     public void RotateLeft()

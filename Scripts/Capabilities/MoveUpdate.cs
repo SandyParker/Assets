@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 public class MoveUpdate : MonoBehaviour
 {
     public Animator anim;
+    public bool allowed;
     [Header("Contols")]
     private PlayerInput input;
     private PlayerControls playercontrols;
@@ -78,10 +79,10 @@ public class MoveUpdate : MonoBehaviour
 
     [Header("Attack")]
     public float attackspeedreduser;
-
-
+    
     void Awake()
     {
+        allowed = true;
         playercontrols = new PlayerControls();
         input = GetComponent<PlayerInput>();
         shortJump = false;
@@ -157,7 +158,7 @@ public class MoveUpdate : MonoBehaviour
             velocity.x = 0;
         }
 
-        if (!isWallJumping && !isWallSliding)
+        if (!isWallJumping && !isWallSliding && allowed)
         {
             velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, MaxSpeedChange);
             body.velocity = velocity;
@@ -177,7 +178,16 @@ public class MoveUpdate : MonoBehaviour
 
         
         jumpremtime -= Time.deltaTime;
-        
+
+        if (anim.GetBool("IsAttack1") || anim.GetBool("IsAttack2") || anim.GetBool("IsAttack3"))
+        {
+            allowed = false;
+        }
+        else
+        {
+            allowed = true;
+        }
+
 
         if ((jumpremtime > 0) && (fallremember > 0))
         {
@@ -185,44 +195,51 @@ public class MoveUpdate : MonoBehaviour
             jumpremtime = 0;
         }
 
-        if (body.velocity.y > 0f)
+        if (!allowed && (velocity.x > 0.5 || velocity.x < -0.5))
         {
-            if (shortJump)
-            {
-                body.gravityScale = UpwardMovementMultiplier / jumpmod;
-            }
-            else
-            {
-                body.gravityScale = UpwardMovementMultiplier;
-            }
-
-        }
-        else if (body.velocity.y < 0f)
-        {
-            body.gravityScale = DownwardMovementMultiplier;
-        }
-        else if (body.velocity.y == 0f)
-        {
-            body.gravityScale = defaultGravityScale;
-        }
-        
-        if (-velocity.y > maxfallspeed)
-            velocity.y = -maxfallspeed;
-        if (velocity.y > WallJumpPower.y)
-        {
-            velocity.y = WallJumpPower.y;
-        }
-        OnEdge = edge.IsOnEdge();
-        WallSlide();
-        WallJump();
-        if (anim.GetBool("IsAttack1") || anim.GetBool("IsAttack2") || anim.GetBool("IsAttack3"))
-        {
+            Debug.Log("WORK");
             velocity.x -= attackspeedreduser * transform.right.x;
             velocity.y = 0;
-            if (Mathf.Abs(velocity.x)<=1f)
+            body.velocity = velocity;
+            if (Mathf.Abs(velocity.x) <= 1f)
             {
                 velocity.x = 0;
             }
+        }
+
+        if (allowed)
+        {
+            if (body.velocity.y > 0f)
+            {
+                if (shortJump)
+                {
+                    body.gravityScale = UpwardMovementMultiplier / jumpmod;
+                }
+                else
+                {
+                    body.gravityScale = UpwardMovementMultiplier;
+                }
+
+            }
+            else if (body.velocity.y < 0f)
+            {
+                body.gravityScale = DownwardMovementMultiplier;
+            }
+            else if (body.velocity.y == 0f)
+            {
+                body.gravityScale = defaultGravityScale;
+            }
+
+            if (-velocity.y > maxfallspeed)
+                velocity.y = -maxfallspeed;
+            if (velocity.y > WallJumpPower.y)
+            {
+                velocity.y = WallJumpPower.y;
+            }
+            OnEdge = edge.IsOnEdge();
+            WallSlide();
+            WallJump();
+           
         }
         body.velocity = velocity;
     }
@@ -282,7 +299,7 @@ public class MoveUpdate : MonoBehaviour
         {
             velocity.x=0;
             //OnGround = false;
-            if (!edge.greenBox)
+            if (!edge.greenBox && allowed)
             {
                 body.gravityScale = wallslidespeed;
                 velocity.y = -maxwallslidespeed;
@@ -321,43 +338,47 @@ public class MoveUpdate : MonoBehaviour
     }
     public void Jump()
     {
-        jumpremtime = jumperem;
-
-        if (OnEdge && horizontal != -(transform.right.x))
+        if (allowed)
         {
-            readytomove = true;
+            jumpremtime = jumperem;
+
+            if (OnEdge && horizontal != -(transform.right.x))
+            {
+                readytomove = true;
+            }
+
+            if (isWallSliding && ((body.transform.right.x == -1 && horizontal >= 0.75f || body.transform.right.x == 1 && horizontal <= -0.75f) || (body.transform.right.x == -1 && horizontal <= -0.75f || body.transform.right.x == 1 && horizontal >= 0.75f)))
+            {
+
+                isWallJumping = true;
+                isWallSliding = false;
+                velocity.x = WallJumpPower.x * (walljumpdirection);
+                velocity.y = WallJumpPower.y;
+
+
+
+                Invoke(nameof(stopwalljumping), walljumpduration);
+            }
+
+            else if (isWallSliding && (body.transform.right.x == -1 && horizontal >= -0.25f || body.transform.right.x == 1 && horizontal <= 0.25f))
+            {
+                isWallJumping = true;
+                isWallSliding = false;
+                walltime = 0;
+                //velocity.x = -body.transform.right.x * 0.05f;
+                Invoke(nameof(stopwalljumping), walljumpduration);
+            }
+
+
+
+            /*if (OnEdge && (vertical >= 0.75f || ((body.transform.right.x == -1 && horizontal <= -0.75f) || (body.transform.right.x == 1 && horizontal >= 0.75f))))
+            {
+                anim.SetBool("IsClimb", true);
+            }*/
+
+            body.velocity = velocity;
         }
-
-        if (isWallSliding && ((body.transform.right.x == -1 && horizontal >= 0.75f || body.transform.right.x == 1 && horizontal <= -0.75f) || (body.transform.right.x == -1 && horizontal <= -0.75f || body.transform.right.x == 1 && horizontal >= 0.75f)))
-        {
-            
-            isWallJumping = true;
-            isWallSliding = false;
-            velocity.x = WallJumpPower.x * (walljumpdirection);
-            velocity.y = WallJumpPower.y;
-
-            
-
-            Invoke(nameof(stopwalljumping), walljumpduration);
-        }
-
-        else if (isWallSliding && (body.transform.right.x == -1 && horizontal >= -0.25f || body.transform.right.x == 1 && horizontal <= 0.25f))
-        {
-            isWallJumping = true;
-            isWallSliding = false;
-            walltime = 0;
-            //velocity.x = -body.transform.right.x * 0.05f;
-            Invoke(nameof(stopwalljumping), walljumpduration);
-        }
-
-
-
-        /*if (OnEdge && (vertical >= 0.75f || ((body.transform.right.x == -1 && horizontal <= -0.75f) || (body.transform.right.x == 1 && horizontal >= 0.75f))))
-        {
-            anim.SetBool("IsClimb", true);
-        }*/
-
-        body.velocity = velocity;
+       
 
     }
 

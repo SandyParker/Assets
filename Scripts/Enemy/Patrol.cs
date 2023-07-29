@@ -64,10 +64,12 @@ public class Patrol : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (followEnabled  && seeker.IsDone())
+        if (followEnabled)
         {
+            //Debug.Log(patrolpoints[currPointIndex].position);
             seeker.StartPath(rb.position, patrolpoints[currPointIndex].position, OnPathComplete);
         }
+        
     }
 
     void Update()
@@ -92,6 +94,7 @@ public class Patrol : MonoBehaviour
         {
             return;
         }
+
 
         // See if colliding with anything
         Vector3 startOffset = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y + jumpCheckOffset);

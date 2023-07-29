@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FOV : MonoBehaviour
+public class PatrolUpdate : MonoBehaviour
 {
     [Header("View")]
     public float visionAngle = 90f;
     public float visionRange = 5f;
     public int visionSegments = 10;
     public LayerMask targetLayer;
-	public LayerMask obstacleLayer;
+    public LayerMask obstacleLayer;
     public float mod;
     public RotateView rv;
     private float Direction;
@@ -33,7 +33,7 @@ public class FOV : MonoBehaviour
         mesh = new Mesh();
         mf.mesh = mesh;
         mr.sortingLayerName = "Default"; // Set the sorting layer of the mesh renderer
-        rend.material.color=Color.red;
+        rend.material.color = Color.red;
         found = false;
         Direction = -1;
         patrol = GetComponent<Patrol>();
@@ -70,11 +70,11 @@ public class FOV : MonoBehaviour
             AI.enabled = false;
         }
 
-        if (rb.velocity.x>0)
+        if (rb.velocity.x > 0)
         {
             Direction = 1;
         }
-        else if (rb.velocity.x<0)
+        else if (rb.velocity.x < 0)
         {
             Direction = -1;
         }
@@ -127,7 +127,7 @@ public class FOV : MonoBehaviour
             }
             else
             {
-                vertices[i + 1] = new Vector2((direction * visionRange).x / mod * Direction*-1, (direction * visionRange).y / mod);
+                vertices[i + 1] = new Vector2((direction * visionRange).x / mod * Direction * -1, (direction * visionRange).y / mod);
                 Debug.DrawLine(transform.position, (Vector2)transform.position + direction * visionRange, Color.red);
                 if (Physics2D.Raycast(transform.position, direction, visionRange, targetLayer) && !Physics2D.Raycast(transform.position, direction, visionRange, obstacleLayer))
                 {

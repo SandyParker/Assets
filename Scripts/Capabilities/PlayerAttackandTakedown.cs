@@ -8,8 +8,6 @@ public class PlayerAttackandTakedown : MonoBehaviour
     private PlayerControls playercontrols;
     private PlayerInput input;
     public AdenturerAnimation anim;
-    public Tackdownable takedown;
-    public GameObject point;
 
     void Awake()
     {
@@ -27,14 +25,6 @@ public class PlayerAttackandTakedown : MonoBehaviour
     public void Attack()
     {
         Debug.Log("Called");
-        if (takedown.tackdownable)
-        {
-            transform.position = point.transform.position;
-            anim.Attack();
-        }
-        else
-        {
-            anim.Attack();
-        }  
+        anim.Attack();
     }
 }

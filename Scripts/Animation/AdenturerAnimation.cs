@@ -49,21 +49,38 @@ public class AdenturerAnimation : MonoBehaviour
 
     void Attack1Done()
     {
+        Debug.Log("ended");
+        moveupdate.allowed = true;
         anim.SetBool("IsAttack1", false);
         playerattack.enabled = false;
-
+    }
+    void Attack1Start()
+    {
+        moveupdate.allowed = false;
     }
 
     void Attack2Done()
     {
+        moveupdate.allowed = true;
         anim.SetBool("IsAttack2", false);
         playerattack.enabled = false;
-    }  
-    
+    }
+
+    void Attack2Start()
+    {
+        moveupdate.allowed = false;
+    }
+
     void Attack3Done()
     {
+        moveupdate.allowed = true;
         anim.SetBool("IsAttack3", false);
         playerattack.enabled = false;
+    }
+
+    void Attack3start()
+    {
+        moveupdate.allowed = false;
     }
 
     // Update is called once per frame

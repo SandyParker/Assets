@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour
     private bool isGrounded;
     public EnemyAnimations anim;
 
-    public void Awake()
+    void Start()
     {
         ground = GetComponent<Ground>();
         seeker = GetComponent<Seeker>();
@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(Vector2.Distance(transform.position, target.transform.position));
+        //Debug.Log(Vector2.Distance(transform.position, target.transform.position));
         isGrounded = ground.GetOnGround();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(MaxSpeed - ground.GetFriction(), 0f);
         if (TargetInDistance() && followEnabled && TargetCloseDistance())
@@ -75,8 +75,10 @@ public class EnemyAI : MonoBehaviour
 
     private void UpdatePath()
     {
-        if (followEnabled && TargetInDistance() && seeker.IsDone() && TargetCloseDistance())
+        Debug.Log("Chasing");
+        if (followEnabled && TargetInDistance() && TargetCloseDistance())
         {
+            
             seeker.StartPath(rb.position, target.position, OnPathComplete);
         }
     }
