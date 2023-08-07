@@ -79,7 +79,12 @@ public class MoveUpdate : MonoBehaviour
 
     [Header("Attack")]
     public float attackspeedreduser;
-    
+
+    [Header("Dash")]
+    public float dashspeed;
+    public float dashtime;
+    private float dashtimer;
+
     void Awake()
     {
         allowed = true;
@@ -97,6 +102,7 @@ public class MoveUpdate : MonoBehaviour
         playercontrols.Controls.Jump.performed += _ => Jump();
         playercontrols.Controls.Jump.canceled += _ => JumpOver();
         playercontrols.Controls.Attack.performed += _ => take.Attack();
+        playercontrols.Controls.Dash.performed += _ => Dash();
 
     }
 
@@ -104,6 +110,11 @@ public class MoveUpdate : MonoBehaviour
     {
         IsGamepad = pi.currentControlScheme.Equals("Controller") ? true : false;
     }
+
+    public void Dash()
+    {
+        dashtimer = 0;
+}
 
     private void OnEnable()
     {
@@ -178,15 +189,7 @@ public class MoveUpdate : MonoBehaviour
 
         
         jumpremtime -= Time.deltaTime;
-
-        if (anim.GetBool("IsAttack1") || anim.GetBool("IsAttack2") || anim.GetBool("IsAttack3"))
-        {
-            allowed = false;
-        }
-        else
-        {
-            allowed = true;
-        }
+        dashtimer += Time.deltaTime;
 
 
         if ((jumpremtime > 0) && (fallremember > 0))
@@ -197,7 +200,6 @@ public class MoveUpdate : MonoBehaviour
 
         if (!allowed && (velocity.x > 0.5 || velocity.x < -0.5))
         {
-            Debug.Log("WORK");
             velocity.x -= attackspeedreduser * transform.right.x;
             velocity.y = 0;
             body.velocity = velocity;
@@ -205,6 +207,29 @@ public class MoveUpdate : MonoBehaviour
             {
                 velocity.x = 0;
             }
+        }
+
+        if(dashtimer >= dashtime)
+        {
+            anim.SetBool("IsDash", false);
+        }
+
+        if (dashtimer<dashtime && !isWallSliding)
+        {
+            anim.SetBool("IsDash", true);
+            velocity.x = dashspeed * transform.right.x;
+            velocity.y = 0;
+            allowed = false;
+            body.velocity = velocity;
+
+        }
+        else if (anim.GetBool("IsAttack1") || anim.GetBool("IsAttack2") || anim.GetBool("IsAttack3"))
+        {
+            allowed = false;
+        }
+        else
+        {
+            allowed = true;
         }
 
         if (allowed)

@@ -49,10 +49,14 @@ public class AdenturerAnimation : MonoBehaviour
 
     void Attack1Done()
     {
-        Debug.Log("ended");
         moveupdate.allowed = true;
         anim.SetBool("IsAttack1", false);
         playerattack.enabled = false;
+    }
+
+    void DashDone()
+    {
+        anim.SetBool("IsDash", false);
     }
     void Attack1Start()
     {

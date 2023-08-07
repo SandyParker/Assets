@@ -71,6 +71,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""d88e68f3-1502-4f3e-a1e7-3881ec4efe13"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -227,6 +236,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Skill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a389aa66-b4b9-495b-a44b-89948d6f80bb"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fd1a2a7-c634-41af-8d6a-2253d5062d54"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -268,6 +299,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Controls_Jump = m_Controls.FindAction("Jump", throwIfNotFound: true);
         m_Controls_Attack = m_Controls.FindAction("Attack", throwIfNotFound: true);
         m_Controls_Skill = m_Controls.FindAction("Skill", throwIfNotFound: true);
+        m_Controls_Dash = m_Controls.FindAction("Dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -334,6 +366,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Jump;
     private readonly InputAction m_Controls_Attack;
     private readonly InputAction m_Controls_Skill;
+    private readonly InputAction m_Controls_Dash;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -343,6 +376,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Controls_Jump;
         public InputAction @Attack => m_Wrapper.m_Controls_Attack;
         public InputAction @Skill => m_Wrapper.m_Controls_Skill;
+        public InputAction @Dash => m_Wrapper.m_Controls_Dash;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -367,6 +401,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Skill.started += instance.OnSkill;
             @Skill.performed += instance.OnSkill;
             @Skill.canceled += instance.OnSkill;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -386,6 +423,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Skill.started -= instance.OnSkill;
             @Skill.performed -= instance.OnSkill;
             @Skill.canceled -= instance.OnSkill;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -428,5 +468,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSkill(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

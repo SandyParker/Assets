@@ -75,7 +75,6 @@ public class EnemyAI : MonoBehaviour
 
     private void UpdatePath()
     {
-        Debug.Log("Chasing");
         if (followEnabled && TargetInDistance() && TargetCloseDistance())
         {
             
