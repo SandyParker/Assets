@@ -83,7 +83,7 @@ public class MoveUpdate : MonoBehaviour
     [Header("Dash")]
     public float dashspeed;
     public float dashtime;
-    private float dashtimer;
+    public float dashtimer;
 
     void Awake()
     {

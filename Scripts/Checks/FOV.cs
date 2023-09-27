@@ -131,7 +131,6 @@ public class FOV : MonoBehaviour
                 Debug.DrawLine(transform.position, (Vector2)transform.position + direction * visionRange, Color.red);
                 if (Physics2D.Raycast(transform.position, direction, visionRange, targetLayer) && !Physics2D.Raycast(transform.position, direction, visionRange, obstacleLayer))
                 {
-                    Debug.Log("Target Found");
                     found = true;
                 }
             }

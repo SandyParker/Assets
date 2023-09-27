@@ -52,8 +52,20 @@ public class EnemyAI : MonoBehaviour
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
+    private void Awake()
+    {
+        GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+    private void OnDestroy()
+    {
+        GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+    }
+    private void OnGameStateChanged(GameState newGameState)
+    {
+        enabled = newGameState == GameState.Gameplay;
+    }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //Debug.Log(Vector2.Distance(transform.position, target.transform.position));
         isGrounded = ground.GetOnGround();

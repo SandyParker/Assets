@@ -27,7 +27,7 @@ public class Blink : MonoBehaviour
              knifethrow.isthrown = false;
              transform.position = knife.transform.position;
              cooldown.iscooldown = true;
-             cooldown.blink.fillAmount = 0;
+             cooldown.image.fillAmount = 0;
         }
         else if (!isthrown && !cooldown.iscooldown)
         {

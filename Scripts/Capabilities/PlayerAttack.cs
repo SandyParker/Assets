@@ -23,7 +23,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(("Enemy")))
+        if (collision.CompareTag("Enemy"))
         {
             Debug.Log("Called");
             collision.GetComponent<Enemy>().TakeDamage(damage);

@@ -192,11 +192,11 @@ public class AdenturerAnimation : MonoBehaviour
             localscale.x *= -1;
         }*/
 
-        if (body.velocity.x>0 && !facingright)
+        if (body.velocity.x>0 && moveupdate.dir.x == -1)
         {
             Flip();
         }
-        else if(body.velocity.x<0 && facingright)
+        else if(body.velocity.x<0 && moveupdate.dir.x == 1)
         {
             Flip();
         }

@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class Cooldowns : MonoBehaviour
 {
 
-    public Image blink;
-    public float cooldown1;
+    public Image image;
+    public float cooldown;
     public bool iscooldown = false;
     // Start is called before the first frame update
     void Awake()
     {
-        blink.fillAmount = 1;
+        image.fillAmount = 1;
     }
 
     // Update is called once per frame
@@ -20,11 +20,11 @@ public class Cooldowns : MonoBehaviour
     {
         if (iscooldown)
         {
-            blink.fillAmount += 1 / cooldown1 * Time.deltaTime;
+            image.fillAmount += 1 / cooldown * Time.deltaTime;
 
-            if (blink.fillAmount>=1)
+            if (image.fillAmount>=1)
             {
-                blink.fillAmount = 1;
+                image.fillAmount = 1;
                 iscooldown = false;
             }
         }

@@ -18,6 +18,7 @@ public class KnifeThrow : MonoBehaviour
     private PlayerControls playercontrols;
     public Blink playertp;
     public bool pressed;
+    public Rewind revind;
     // Start is called before the first frame update
 
     [Header("Slomo")]
@@ -97,10 +98,11 @@ public class KnifeThrow : MonoBehaviour
 
         else
         {
-            Time.timeScale += slowfactor;
+            if (!revind.isRewinding)
+                Time.timeScale += slowfactor;
         }
-
-        Time.timeScale = Mathf.Clamp(Time.timeScale, slomofactor, 1f);
+        if (!revind.isRewinding)
+            Time.timeScale = Mathf.Clamp(Time.timeScale, slomofactor, 1f);
         velocity = direction * speed;
         rb.velocity = velocity;
         if (!isthrown && timer >=0.001f)

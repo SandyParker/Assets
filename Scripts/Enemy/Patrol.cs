@@ -60,6 +60,19 @@ public class Patrol : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
 
+    private void Awake()
+    {
+        GameStateManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+    private void OnDestroy()
+    {
+        GameStateManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+    }
+    private void OnGameStateChanged(GameState newGameState)
+    {
+        enabled = newGameState == GameState.Gameplay;
+    }
+
     // Update is called once per frame
 
     private void UpdatePath()
@@ -72,13 +85,43 @@ public class Patrol : MonoBehaviour
         
     }
 
-    void Update()
+    void FixedUpdate()
     {
         isGrounded = ground.GetOnGround();
         desiredVelocity = new Vector2(direction.x, 0f) * Mathf.Max(MaxSpeed - ground.GetFriction(), 0f);
         if (followEnabled)
         {
             PathFollow();
+        }
+
+        if (Mathf.Abs(transform.position.x - patrolpoints[currPointIndex].position.x) > 0.1f)
+        {
+            velocity = rb.velocity;
+
+            acceration = isGrounded ? acceration : MaxAirAcc;
+            MaxSpeedChange = acceration * Time.deltaTime;
+            velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, MaxSpeedChange);
+            rb.velocity = velocity;
+        }
+        else
+        {
+            if (once == false)
+            {
+                once = true;
+                velocity.x = 0;
+                rb.velocity = velocity;
+                StartCoroutine(Wait());
+            }
+        }
+
+        if (rb.velocity.y > 0f)
+        {
+            rb.gravityScale = UpwardMovementMultiplier;
+        }
+
+        else if (rb.velocity.y < 0f)
+        {
+            rb.gravityScale = DownwardMovementMultiplier;
         }
     }
 
@@ -136,39 +179,6 @@ public class Patrol : MonoBehaviour
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if (Mathf.Abs(transform.position.x - patrolpoints[currPointIndex].position.x) > 0.1f)
-        {
-            velocity = rb.velocity;
-
-            acceration = isGrounded ? acceration : MaxAirAcc;
-            MaxSpeedChange = acceration * Time.deltaTime;
-            velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, MaxSpeedChange);
-            rb.velocity = velocity;
-        }
-        else
-        {
-            if (once == false)
-            {
-                once = true;
-                velocity.x = 0;
-                rb.velocity = velocity;
-                StartCoroutine(Wait());
-            }
-        }
-
-        if (rb.velocity.y > 0f)
-        {
-            rb.gravityScale = UpwardMovementMultiplier;
-        }
-
-        else if (rb.velocity.y < 0f)
-        {
-            rb.gravityScale = DownwardMovementMultiplier;
         }
     }
 
