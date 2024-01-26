@@ -8,7 +8,7 @@ public class PlayerAttackandTakedown : MonoBehaviour
     private PlayerControls playercontrols;
     private PlayerInput input;
     public AdenturerAnimation anim;
-
+    
     void Awake()
     {
         playercontrols = new PlayerControls();
@@ -24,7 +24,7 @@ public class PlayerAttackandTakedown : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Called");
-        anim.Attack();
+        if (!PauseScreen.paused)
+            anim.Attack();
     }
 }

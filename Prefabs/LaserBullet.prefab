@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cea725dffe340e541943084f09b5ddc6, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   speed: 30
   damage: 10
   rb: {fileID: 2906839863798471269}
+  mana: 15
 --- !u!70 &7386286723890746915
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

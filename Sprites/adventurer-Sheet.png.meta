@@ -113,6 +113,30 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1639,78 +1663,78 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      adventurer-Sheet_27: -1455639996
-      adventurer-Sheet_42: -1510910555
-      adventurer-Sheet_40: 178479326
-      adventurer-Sheet_37: 1249576469
-      adventurer-Sheet_31: -1522320640
-      adventurer-Sheet_49: -1933880137
-      adventurer-Sheet_7: -473522004
-      adventurer-Sheet_19: -1731230780
-      adventurer-Sheet_68: -1725696181
-      adventurer-Sheet_43: 1192286930
-      adventurer-Sheet_26: 1985638162
-      adventurer-Sheet_25: 1769557683
-      adventurer-Sheet_28: -365314276
-      adventurer-Sheet_71: -1290839975
-      adventurer-Sheet_14: 1274599176
-      adventurer-Sheet_46: 24188785
-      adventurer-Sheet_48: -646483304
-      adventurer-Sheet_70: 1566005325
-      adventurer-Sheet_69: 1437421292
-      adventurer-Sheet_54: -1596733342
-      adventurer-Sheet_35: -1856204811
-      adventurer-Sheet_62: -559341147
-      adventurer-Sheet_20: 1212155644
-      adventurer-Sheet_8: -366644743
-      adventurer-Sheet_12: 942139310
-      adventurer-Sheet_45: 1421316588
-      adventurer-Sheet_56: -259425655
-      adventurer-Sheet_63: -424973846
-      adventurer-Sheet_47: 1155848527
-      adventurer-Sheet_39: 502482707
-      adventurer-Sheet_29: 1535383222
-      adventurer-Sheet_38: 1170307067
-      adventurer-Sheet_60: -2117857775
-      adventurer-Sheet_36: -1316488709
-      adventurer-Sheet_52: 1970459214
-      adventurer-Sheet_22: -1303704146
-      adventurer-Sheet_23: 656494591
-      adventurer-Sheet_50: -1412090031
-      adventurer-Sheet_53: 593138126
-      adventurer-Sheet_64: 2130438620
-      adventurer-Sheet_1: -1686485940
-      adventurer-Sheet_4: 509212412
-      adventurer-Sheet_51: -1410784428
-      adventurer-Sheet_61: 1258891158
-      adventurer-Sheet_16: -727987875
-      adventurer-Sheet_34: -1250811392
-      adventurer-Sheet_59: -1863862359
-      adventurer-Sheet_2: -1562873990
-      adventurer-Sheet_15: -46557268
       adventurer-Sheet_0: 499692778
-      adventurer-Sheet_32: -805549134
-      adventurer-Sheet_58: 1876771903
-      adventurer-Sheet_6: 555853079
-      adventurer-Sheet_21: 1037581948
-      adventurer-Sheet_13: -1098797941
-      adventurer-Sheet_44: -1591570330
-      adventurer-Sheet_67: -924534130
-      adventurer-Sheet_30: -1844010345
-      adventurer-Sheet_5: 1209509082
-      adventurer-Sheet_17: -2001511279
-      adventurer-Sheet_18: -168521631
-      adventurer-Sheet_66: -787499217
+      adventurer-Sheet_1: -1686485940
       adventurer-Sheet_10: -628642414
       adventurer-Sheet_11: 223390557
-      adventurer-Sheet_55: 1135581100
-      adventurer-Sheet_41: -230040579
+      adventurer-Sheet_12: 942139310
+      adventurer-Sheet_13: -1098797941
+      adventurer-Sheet_14: 1274599176
+      adventurer-Sheet_15: -46557268
+      adventurer-Sheet_16: -727987875
+      adventurer-Sheet_17: -2001511279
+      adventurer-Sheet_18: -168521631
+      adventurer-Sheet_19: -1731230780
+      adventurer-Sheet_2: -1562873990
+      adventurer-Sheet_20: 1212155644
+      adventurer-Sheet_21: 1037581948
+      adventurer-Sheet_22: -1303704146
+      adventurer-Sheet_23: 656494591
       adventurer-Sheet_24: 1181819559
+      adventurer-Sheet_25: 1769557683
+      adventurer-Sheet_26: 1985638162
+      adventurer-Sheet_27: -1455639996
+      adventurer-Sheet_28: -365314276
+      adventurer-Sheet_29: 1535383222
       adventurer-Sheet_3: -1743410106
+      adventurer-Sheet_30: -1844010345
+      adventurer-Sheet_31: -1522320640
+      adventurer-Sheet_32: -805549134
       adventurer-Sheet_33: 576561411
+      adventurer-Sheet_34: -1250811392
+      adventurer-Sheet_35: -1856204811
+      adventurer-Sheet_36: -1316488709
+      adventurer-Sheet_37: 1249576469
+      adventurer-Sheet_38: 1170307067
+      adventurer-Sheet_39: 502482707
+      adventurer-Sheet_4: 509212412
+      adventurer-Sheet_40: 178479326
+      adventurer-Sheet_41: -230040579
+      adventurer-Sheet_42: -1510910555
+      adventurer-Sheet_43: 1192286930
+      adventurer-Sheet_44: -1591570330
+      adventurer-Sheet_45: 1421316588
+      adventurer-Sheet_46: 24188785
+      adventurer-Sheet_47: 1155848527
+      adventurer-Sheet_48: -646483304
+      adventurer-Sheet_49: -1933880137
+      adventurer-Sheet_5: 1209509082
+      adventurer-Sheet_50: -1412090031
+      adventurer-Sheet_51: -1410784428
+      adventurer-Sheet_52: 1970459214
+      adventurer-Sheet_53: 593138126
+      adventurer-Sheet_54: -1596733342
+      adventurer-Sheet_55: 1135581100
+      adventurer-Sheet_56: -259425655
       adventurer-Sheet_57: 1983916971
-      adventurer-Sheet_9: 1900737721
+      adventurer-Sheet_58: 1876771903
+      adventurer-Sheet_59: -1863862359
+      adventurer-Sheet_6: 555853079
+      adventurer-Sheet_60: -2117857775
+      adventurer-Sheet_61: 1258891158
+      adventurer-Sheet_62: -559341147
+      adventurer-Sheet_63: -424973846
+      adventurer-Sheet_64: 2130438620
       adventurer-Sheet_65: -256572652
+      adventurer-Sheet_66: -787499217
+      adventurer-Sheet_67: -924534130
+      adventurer-Sheet_68: -1725696181
+      adventurer-Sheet_69: 1437421292
+      adventurer-Sheet_7: -473522004
+      adventurer-Sheet_70: 1566005325
+      adventurer-Sheet_71: -1290839975
+      adventurer-Sheet_8: -366644743
+      adventurer-Sheet_9: 1900737721
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

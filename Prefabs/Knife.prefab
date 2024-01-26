@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583279407822035723}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 129.52, y: 7.8, z: 0.00000047683716}
   m_LocalScale: {x: 0.5663978, y: 0.080683626, z: 1}
   m_ConstrainProportionsScale: 0
@@ -136,4 +136,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba2d325395409d45b6d7fa34da6d196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  defaultpos: {x: 0, y: 0, z: 0}
+  isthrown: 0
+  speed: 0
+  thrower: {fileID: 0}
+  firespeed: 20
+  Firepoint: {fileID: 0}
+  playertp: {fileID: 0}
+  pressed: 0
+  revind: {fileID: 0}
+  slomofactor: 0.1
+  slow: 0
+  slowfactor: 0.1
+  cooldown: {fileID: 0}
+  player: {fileID: 0}

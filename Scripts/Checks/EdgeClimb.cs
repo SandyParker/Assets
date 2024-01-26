@@ -28,10 +28,10 @@ public class EdgeClimb : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        /*Gizmos.color = Color.green;
+        Gizmos.color = Color.green;
         Gizmos.DrawWireCube(new Vector2(transform.position.x + (GreenXOffset * transform.localScale.x * transform.right.x), transform.position.y + GreenYOffset), new Vector2(GreenXSize, GreenYSize));
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(new Vector2(transform.position.x + (RedXOffset * transform.localScale.x * transform.right.x), transform.position.y + RedYOffset), new Vector2(RedXSize, RedYSize));*/
+        Gizmos.DrawWireCube(new Vector2(transform.position.x + (RedXOffset * transform.localScale.x * transform.right.x), transform.position.y + RedYOffset), new Vector2(RedXSize, RedYSize));
     }
 
     public bool IsOnEdge()

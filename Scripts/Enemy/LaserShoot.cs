@@ -7,6 +7,7 @@ public class LaserShoot : MonoBehaviour
     public float speed = 30;
     public float damage = 30;
     public Rigidbody2D rb;
+    public float mana;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class LaserShoot : MonoBehaviour
         {
             if (collision.CompareTag("Player"))
             {
-                collision.GetComponent<Player>().TakeDamage(damage);
+                collision.GetComponent<Player>().TakeDamage(damage,mana);
             }
             Destroy(gameObject);
         }

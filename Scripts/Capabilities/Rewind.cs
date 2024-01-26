@@ -21,6 +21,7 @@ public class Rewind : MonoBehaviour
     private float gain;
     private float gainshow;
     public float gainspeed;
+    [SerializeField, Range(0f, 100f)] public float manacost;
 
     // Start is called before the first frame update
     void Awake()
@@ -46,6 +47,12 @@ public class Rewind : MonoBehaviour
         {
             gainshow += Time.deltaTime * gainspeed;
         }
+
+        if (gain + 1 > gainshow && gain - 1 < gainshow)
+        {
+            gainshow = gain;
+        }
+
         bar.SetHealth(gainshow);
 
         if (isRewinding)
@@ -99,23 +106,27 @@ public class Rewind : MonoBehaviour
 
     public void Revind()
     {
-        Time.timeScale = 0;
-        gain = POI[0].HP + (POI[POI.Count - 1].HP - POI[0].HP) / 2;
-        if (!cooldown.iscooldown)
-            player.hp = POI[POI.Count - 1].HP > POI[0].HP ? POI[0].HP + (POI[POI.Count - 1].HP - POI[0].HP) / 2 : POI[0].HP;
-        isRewinding = true;
-        rb.isKinematic = true;
-        moveUpdate.allowed = false;
-        anim.SetFloat("Direction", -2);
-        AA.enabled=false;
-        ghost.makeghost = true;
-        Physics2D.IgnoreLayerCollision(7, 6, true);
+        if (player.mana >= manacost)
+        {
+            player.mana -= manacost;
+            Time.timeScale = 0;
+            gain = POI[0].HP + (POI[POI.Count - 1].HP - POI[0].HP) / 2;
+            if (!cooldown.iscooldown)
+                player.hp = POI[POI.Count - 1].HP > POI[0].HP ? POI[0].HP + (POI[POI.Count - 1].HP - POI[0].HP) / 2 : POI[0].HP;
+            isRewinding = true;
+            rb.isKinematic = true;
+            MoveUpdate.allowed = false;
+            anim.SetFloat("Direction", -2);
+            AA.enabled = false;
+            ghost.makeghost = true;
+            Physics2D.IgnoreLayerCollision(7, 6, true);
+        }
     }
 
     public void stopRevind()
     {
         Time.timeScale = 1;
-        moveUpdate.allowed = true;
+        MoveUpdate.allowed = true;
         isRewinding = false;
         rb.isKinematic = false;
         anim.SetFloat("Direction", 1);

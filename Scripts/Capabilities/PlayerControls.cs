@@ -89,6 +89,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Ult"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1cc49e7-7f52-4a44-a6ca-44b55b812777"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e47e80c8-2e93-4d3c-9e33-ba3cf00719d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -289,6 +307,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Rewind"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""197dc5f9-628f-4b85-a771-3518296de5db"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Ult"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c275db45-29f0-4cbf-a285-9fb0e1e8df24"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Ult"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4777399-bbe7-4855-a9cf-6c0342cc431a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KBM"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""267ad877-4272-47a6-8c9a-2f50bfea7283"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -332,6 +394,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Controls_Skill = m_Controls.FindAction("Skill", throwIfNotFound: true);
         m_Controls_Dash = m_Controls.FindAction("Dash", throwIfNotFound: true);
         m_Controls_Rewind = m_Controls.FindAction("Rewind", throwIfNotFound: true);
+        m_Controls_Ult = m_Controls.FindAction("Ult", throwIfNotFound: true);
+        m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,6 +464,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Controls_Skill;
     private readonly InputAction m_Controls_Dash;
     private readonly InputAction m_Controls_Rewind;
+    private readonly InputAction m_Controls_Ult;
+    private readonly InputAction m_Controls_Pause;
     public struct ControlsActions
     {
         private @PlayerControls m_Wrapper;
@@ -411,6 +477,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Skill => m_Wrapper.m_Controls_Skill;
         public InputAction @Dash => m_Wrapper.m_Controls_Dash;
         public InputAction @Rewind => m_Wrapper.m_Controls_Rewind;
+        public InputAction @Ult => m_Wrapper.m_Controls_Ult;
+        public InputAction @Pause => m_Wrapper.m_Controls_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -441,6 +509,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Rewind.started += instance.OnRewind;
             @Rewind.performed += instance.OnRewind;
             @Rewind.canceled += instance.OnRewind;
+            @Ult.started += instance.OnUlt;
+            @Ult.performed += instance.OnUlt;
+            @Ult.canceled += instance.OnUlt;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IControlsActions instance)
@@ -466,6 +540,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Rewind.started -= instance.OnRewind;
             @Rewind.performed -= instance.OnRewind;
             @Rewind.canceled -= instance.OnRewind;
+            @Ult.started -= instance.OnUlt;
+            @Ult.performed -= instance.OnUlt;
+            @Ult.canceled -= instance.OnUlt;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IControlsActions instance)
@@ -510,5 +590,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSkill(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnRewind(InputAction.CallbackContext context);
+        void OnUlt(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

@@ -10,6 +10,8 @@ public class Blink : MonoBehaviour
     private PlayerControls playercontrols;
     public Cooldowns cooldown;
     public KnifeThrow knifethrow;
+    public Player player;
+    [SerializeField,Range(0f,100f)] public float manacost;
     void Awake()
     {
         playercontrols = new PlayerControls();
@@ -29,10 +31,10 @@ public class Blink : MonoBehaviour
              cooldown.iscooldown = true;
              cooldown.image.fillAmount = 0;
         }
-        else if (!isthrown && !cooldown.iscooldown)
+        else if (!isthrown && !cooldown.iscooldown && player.mana>=manacost)
         {
             isthrown = true;
-            
+            player.mana-=manacost;
         }
     }
 

@@ -20,6 +20,7 @@ public class AdenturerAnimation : MonoBehaviour
     public MoveUpdate moveupdate;
     private PlayerInput input;
     private PlayerControls playercontrols;
+    public PlayerUlt ult;
     void Awake()
     {
         //Cursor.visible = false;
@@ -29,7 +30,6 @@ public class AdenturerAnimation : MonoBehaviour
 
         
     }
-
     private void OnEnable()
     {
         playercontrols.Enable();
@@ -40,16 +40,17 @@ public class AdenturerAnimation : MonoBehaviour
         playercontrols.Disable();
     }
 
-    /*public void edgeclimb()
+    public void edgeclimb()
     {
+        MoveUpdate.allowed = true;
         body.transform.position += new Vector3(moveupdate.moveOffset.x * body.transform.right.x, moveupdate.moveOffset.y);
         moveupdate.readytomove = false;
         anim.SetBool("IsClimb", false);
-    }*/
+    }
 
     void Attack1Done()
     {
-        moveupdate.allowed = true;
+        MoveUpdate.allowed = true;
         anim.SetBool("IsAttack1", false);
         playerattack.enabled = false;
     }
@@ -57,34 +58,63 @@ public class AdenturerAnimation : MonoBehaviour
     void DashDone()
     {
         anim.SetBool("IsDash", false);
+        MoveUpdate.allowed = true;
     }
     void Attack1Start()
     {
-        moveupdate.allowed = false;
+        MoveUpdate.allowed = false;
     }
 
     void Attack2Done()
     {
-        moveupdate.allowed = true;
+        MoveUpdate.allowed = true;
         anim.SetBool("IsAttack2", false);
         playerattack.enabled = false;
     }
 
     void Attack2Start()
     {
-        moveupdate.allowed = false;
+        MoveUpdate.allowed = false;
     }
 
     void Attack3Done()
     {
-        moveupdate.allowed = true;
+        MoveUpdate.allowed = true;
         anim.SetBool("IsAttack3", false);
         playerattack.enabled = false;
     }
 
     void Attack3start()
     {
-        moveupdate.allowed = false;
+        MoveUpdate.allowed = false;
+    }
+    void UltDeactivate()
+    {
+        anim.SetBool("IsUlt", false);
+        ult.cambreak();
+    }
+
+    void UltTp()
+    {
+        ult.UltEnd();
+        ult.UltDamage();
+    }
+
+    void UltEnd()
+    {
+        playerattack.enabled = true;
+        MoveUpdate.allowed = true;
+        anim.SetBool("IsUltEnd", false);
+    }
+
+    void climbStart()
+    {
+        MoveUpdate.allowed = false;
+    }
+
+    void climbEnd()
+    {
+        MoveUpdate.allowed = true;
     }
 
     // Update is called once per frame
@@ -117,7 +147,7 @@ public class AdenturerAnimation : MonoBehaviour
             anim.SetBool("IsDouble", false);
         }
 
-        else if (Mathf.Abs(body.velocity.x) > 0.1)    
+        else if (Mathf.Abs(body.velocity.x) > 1.5f)    
         {
             anim.SetBool("IsRunning", true);
             anim.SetBool("IsJumping", false);
@@ -173,6 +203,12 @@ public class AdenturerAnimation : MonoBehaviour
                 playerattack.enabled = true;
             }
         }
+    }
+
+    public void Ult()
+    {
+        anim.SetBool("IsUlt", true);
+        MoveUpdate.allowed = false;
     }
 
     private void LateUpdate()

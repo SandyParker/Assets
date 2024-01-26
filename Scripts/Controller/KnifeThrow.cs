@@ -27,6 +27,8 @@ public class KnifeThrow : MonoBehaviour
     public float slowfactor;
     private bool onair;
     public Cooldowns cooldown;
+    public Player player;
+    public SpriteRenderer arrow;
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,7 +46,7 @@ public class KnifeThrow : MonoBehaviour
 
     public void tppressed()
     {
-        if (!cooldown.iscooldown)
+        if (!cooldown.iscooldown && (player.mana>= playertp.manacost || playertp.isthrown))
         {
             slow = true;
             if (onair)
@@ -88,27 +90,48 @@ public class KnifeThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-
-        if (slow)
+        if (!PauseScreen.paused)
         {
-            Time.timeScale -= slowfactor;
-            Time.fixedDeltaTime = Time.timeScale * 0.02f;
-        }
+            timer += Time.deltaTime;
 
-        else
-        {
+            if (slow)
+            {
+                Time.timeScale -= slowfactor;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                
+            }
+            else
+            {
+                if (!revind.isRewinding)
+                {
+                    Time.timeScale = 1;
+                    Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                }        
+            }
+
+            if (pressed)
+            {
+                arrow.color += new Color(0, 0, 0, Time.unscaledDeltaTime * 2);
+                if (arrow.color.a > 1)
+                    arrow.color += new Color(255, 255, 255, 1);
+            }
+
+            else
+            {
+                arrow.color = new Color(255, 255, 255, 0);
+                
+            }
+
             if (!revind.isRewinding)
-                Time.timeScale += slowfactor;
+                Time.timeScale = Mathf.Clamp(Time.timeScale, slomofactor, 1f);
+            velocity = direction * speed;
+            rb.velocity = velocity;
+            if (!isthrown && timer >= 0.001f)
+            {
+                transform.position = defaultpos;
+            }
         }
-        if (!revind.isRewinding)
-            Time.timeScale = Mathf.Clamp(Time.timeScale, slomofactor, 1f);
-        velocity = direction * speed;
-        rb.velocity = velocity;
-        if (!isthrown && timer >=0.001f)
-        {
-            transform.position = defaultpos;
-        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -122,16 +145,11 @@ public class KnifeThrow : MonoBehaviour
 
     void Shoot()
     {
-        transform.rotation = thrower.transform.rotation;
-        direction = thrower.transform.right;
+        transform.rotation = Firepoint.rotation;
+        direction = Firepoint.right;
         transform.position = Firepoint.position;
         speed = firespeed;
         isthrown = true;
-    }
-
-    public bool Blink()
-    {
-        return isthrown;
     }
 
     public Vector3 destination()

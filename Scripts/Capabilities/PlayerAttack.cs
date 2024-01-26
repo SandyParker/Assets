@@ -6,6 +6,8 @@ public class PlayerAttack : MonoBehaviour
 {
     public LayerMask Enemy;
     public float damage;
+    public Player player;
+    public float manahit;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,14 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Called");
             collision.GetComponent<Enemy>().TakeDamage(damage);
             collision.GetComponent<Enemy>().blood.Play();
+            player.mana += manahit;
+        }
+        if (collision.CompareTag("Switch"))
+        {
+            collision.GetComponent<SwitchController>().SwitchTrigger.Invoke();
+            collision.GetComponent<Animator>().SetTrigger("On");
         }
     }
 }

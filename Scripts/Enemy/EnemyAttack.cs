@@ -1,12 +1,16 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-
     public LayerMask Player;
     public float damage;
+    public float mana;
+    public CamShake cam;
+    public float hitshakeintensity;
+    public float hitshaketime;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +27,8 @@ public class EnemyAttack : MonoBehaviour
     {
         if (collision.CompareTag(("Player")))
         {
-            collision.GetComponent<Player>().TakeDamage(damage);
+            collision.GetComponent<Player>().TakeDamage(damage,mana);
+            cam.ShakeCam(hitshakeintensity, hitshaketime);
         }
     }
 }
